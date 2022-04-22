@@ -1,0 +1,31 @@
+package com.example.MovieSPE.Controller;
+
+import com.example.MovieSPE.Model.Shows;
+import com.example.MovieSPE.Service.Show.ShowService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@CrossOrigin("*")
+public class ShowController {
+
+    @Autowired
+    private ShowService showService;
+
+    @GetMapping("/shows")
+    public List<Shows> listAll(){
+        return showService.listAllShows();
+    }
+
+    @GetMapping("/shows/getbyid/{TheatreId}/{MovieId}")
+    public List<Shows> showById(@PathVariable Integer TheatreId,@PathVariable Integer MovieId){
+        return showService.showsById(TheatreId,MovieId);
+
+    }
+    @PostMapping("/shows/add")
+    public boolean add(@RequestBody Shows show) {
+        return showService.addShow(show);
+    }
+}
